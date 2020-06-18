@@ -14,6 +14,6 @@ export class AppComponent implements OnInit {
     private versionCheckService: VersionCheckService
   ) { }
   ngOnInit() {
-    this.versionCheckService.initVersionCheck('http://127.0.0.1:8080');
+    this.versionCheckService.initVersionCheck('http://127.0.0.1:8080'); // <-- Change this url to whatever you want!
   }
 }
