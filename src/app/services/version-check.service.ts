@@ -6,6 +6,7 @@ import swal from 'sweetalert2';
 export class VersionCheckService {
   // this will be replaced by actual hash post-build.js
   private currentHash = '{{POST_BUILD_ENTERS_HASH_HERE}}';
+  private currentVersion = '{{POST_BUILD_VERSION_HERE}}';
 
   constructor(private http: HttpClient) { }
 
@@ -26,11 +27,14 @@ export class VersionCheckService {
    */
   private checkVersion(url) {
     // timestamp these requests to invalidate caches
-    this.http.get(url + '?t=' + new Date().getTime(), { responseType: 'text' }).pipe(first())
+
+    this.http.get('/version.json?t=' + new Date().getTime()).pipe(first())
       .subscribe(
-        (response: string) => {
-          console.log(response);
-          const hash = response.match(/main.*\.([a-z0-9]*)?(\.bundle)?.js" nomodule defer/)[1];
+
+        (response: { version: string; hash: string; }) => {
+
+          console.log('Response : ', response);
+          const hash = response.hash;
           const hashChanged = this.hasHashChanged(this.currentHash, hash);
 
           // If new version, do something

@@ -1,6 +1,6 @@
 {
   "name": "auto-magic-update",
-  "version": "1.0.2",
+  "version": "1.0.10",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
