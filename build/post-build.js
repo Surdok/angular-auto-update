@@ -2,6 +2,10 @@ const path = require('path');
 const fs = require('fs');
 const util = require('util');
 
+const package = JSON.parse(fs.readFileSync(path.join(__dirname, '../package.json'), 'utf8'));
+package.version = "1.0." + (parseInt(package.version.match(/\d\.\d\.(\d)/)[1]) + 1);
+fs.writeFileSync(path.join(__dirname, '../package.json'), JSON.stringify(package, null, 2));
+
 // get application version from package.json
 const appVersion = require('../package.json').version;
 
